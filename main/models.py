@@ -1,5 +1,7 @@
 from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MinValueValidator
+from pygments.lexers import get_all_lexers
+from pygments.styles import get_all_styles
 
 # Create your models here.
 class Vehiculo(models.Model):
@@ -35,6 +37,8 @@ class Vehiculo(models.Model):
 
     def __str__(self):
         return self.matricula + ": " + self.marca + ", " + self.modelo + ", " + self.color
+    class Meta:
+        ordering = ['marca']
 
 class Patinete(models.Model):
     numero = models.PositiveIntegerField(primary_key=True)
