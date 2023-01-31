@@ -4,17 +4,16 @@ from pygments.lexers import get_all_lexers
 from pygments.styles import get_all_styles
 
 # Create your models here.
+class Marca(models.Model):
+    nombre_marca = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.nombre_marca
 class Vehiculo(models.Model):
     TIPOS = [
         ('Coche', 'Coche'),
         ('Ciclomotor', 'Ciclomotor'),
         ('Motocicleta', 'Motocicleta'),
-    ]
-
-    MARCAS = [
-        ('Renault', 'Renault'),
-        ('Seat', 'Seat'),
-        ('BMW', 'BMW'),
     ]
 
     COLORES = [
@@ -24,10 +23,10 @@ class Vehiculo(models.Model):
         ('Azul', 'Azul'),
 
     ]
-    matricula = models.CharField(primary_key=True, max_length=30)
+    matricula = models.CharField(unique=True, max_length=30)
     tipo = models.CharField(max_length=11, choices=TIPOS, default='Coche')
-    chasis = models.PositiveIntegerField(unique=True)
-    marca = models.CharField(max_length=30, choices=MARCAS, default='BMW')
+    chasis = models.CharField(primary_key=True, unique=True, max_length=30)
+    marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
     modelo = models.CharField(max_length=40)
     color = models.CharField(max_length=30, choices=COLORES, default='Negro')
     fecha_fabrica = models.DateField()
@@ -36,10 +35,12 @@ class Vehiculo(models.Model):
     suspendido = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.matricula + ": " + self.marca + ", " + self.modelo + ", " + self.color
-    class Meta:
-        ordering = ['marca']
+        return self.matricula + ": " + self.modelo + ", " + self.color
 
+
+
+
+#EJ2:
 class Patinete(models.Model):
     numero = models.PositiveIntegerField(primary_key=True)
     tipo = models.CharField(max_length=30)
