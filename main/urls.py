@@ -9,6 +9,9 @@ from main import views
 router = DefaultRouter()
 router.register(r'vehiculos', views.VehiculoViewSet,basename="vehiculo")
 router.register(r'marcas', views.MarcaViewSet,basename="marca")
+router.register(r'patinete', views.PatineteViewSet,basename="patinete")
+router.register(r'alquiler', views.AlquilerViewSet,basename="alquiler")
+router.register(r'usuario', views.UsuarioViewSet,basename="usuario")
 
 urlpatterns = [
     path('admin/', admin.site.urls),

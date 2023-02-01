@@ -44,11 +44,11 @@ class Vehiculo(models.Model):
 class Patinete(models.Model):
     numero = models.PositiveIntegerField(primary_key=True)
     tipo = models.CharField(max_length=30)
-    precio_desbloque = models.FloatField([MinValueValidator(0.1)])
-    precio_minuto = models.FloatField([MinValueValidator(0.1)])
+    precio_desbloque = models.FloatField()
+    precio_minuto = models.FloatField()
 
     def __str__(self):
-        return self.numero + ", " + self.tipo
+        return str(self.numero)
 
 class Alquiler(models.Model):
     usuario = models.ForeignKey('Usuario', on_delete=models.RESTRICT)
@@ -59,3 +59,5 @@ class Alquiler(models.Model):
 
 class Usuario(models.Model):
     debito = models.FloatField(validators=[MinValueValidator(0.1)], default=0)
+    def __str__(self):
+        return str(self.id)
