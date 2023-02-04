@@ -55,8 +55,8 @@ class Patinete(models.Model):
 class Alquiler(models.Model):
     usuario = models.ForeignKey('Usuario', on_delete=models.RESTRICT)
     patinete = models.ForeignKey(Patinete, on_delete=models.RESTRICT)
-    fecha_desbloqueo = models.DateField(null=True, blank=True)
-    fecha_entrega = models.DateField(null=True, blank=True)
+    fecha_desbloqueo = models.DateTimeField(null=True, blank=True)
+    fecha_entrega = models.DateTimeField(null=True, blank=True)
     coste_final = models.FloatField(validators=[MinValueValidator(0.1)], null=True, blank=True)
     def __str__(self):
         return str(self.patinete_id) + ", con fecha de dsbloqueo" + str(self.fecha_desbloqueo)

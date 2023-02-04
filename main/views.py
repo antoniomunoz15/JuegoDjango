@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from rest_framework.decorators import action
 from rest_framework.generics import get_object_or_404
@@ -70,9 +70,15 @@ class PatineteViewSet(viewsets.ModelViewSet):
         patinete = get_object_or_404(Patinete, numero=pk)
         alquiler = Alquiler.objects.all().filter(patinete=patinete).order_by('fecha_desbloqueo').last()
 
-        if alquiler.fecha_entrega is None:
+        if alquiler and alquiler.fecha_entrega is None:
+            diferencia_minutos = (datetime.now(timezone.utc) - alquiler.fecha_desbloqueo).total_seconds() / 60.0
+
             alquiler.fecha_entrega = datetime.today()
+            alquiler.coste_final = patinete.precio_desbloque + (patinete.precio_minuto * diferencia_minutos)
+            alquiler.save()
             print("Liberando")
+        else:
+            print("El patinete no está alquilado ahora mismo")
 
         serializador = self.get_serializer(patinete)
         return Response(serializador.data, status=status.HTTP_200_OK)
