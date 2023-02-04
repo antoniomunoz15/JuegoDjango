@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.core.validators import MinValueValidator
 from pygments.lexers import get_all_lexers
@@ -38,7 +40,7 @@ class Vehiculo(models.Model):
         return self.matricula + ": " + self.modelo + ", " + self.color
 
 
-
+#-------------------------------------------------------------------------------------------------------------------EJ2:
 
 #EJ2:
 class Patinete(models.Model):
@@ -55,9 +57,12 @@ class Alquiler(models.Model):
     patinete = models.ForeignKey(Patinete, on_delete=models.RESTRICT)
     fecha_desbloqueo = models.DateField(null=True, blank=True)
     fecha_entrega = models.DateField(null=True, blank=True)
-    coste_final = models.FloatField(validators=[MinValueValidator(0.1)])
+    coste_final = models.FloatField(validators=[MinValueValidator(0.1)], null=True, blank=True)
+    def __str__(self):
+        return str(self.patinete_id) + ", con fecha de dsbloqueo" + str(self.fecha_desbloqueo)
 
 class Usuario(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, to_field='username')
     debito = models.FloatField(validators=[MinValueValidator(0.1)], default=0)
     def __str__(self):
-        return str(self.id)
+        return str(self.usuario)
