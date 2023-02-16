@@ -18,7 +18,7 @@ class Frase(models.Model):
 
 class Usuario(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, to_field='username')
-    puntuacion = models.PositiveIntegerField()
+    puntuacion = models.PositiveIntegerField(null=True, blank=True)
     def __str__(self):
         return str(self.usuario)
 

@@ -7,8 +7,6 @@ django-environ
 
 #Postgres Requirement
 # sudo apt install python3-dev libpq-dev
-pip install django-cors-headers
-pip install pygments
 #development
 psycopg2-binary
 #production ready
