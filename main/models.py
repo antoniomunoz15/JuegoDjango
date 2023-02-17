@@ -15,10 +15,12 @@ from pygments import highlight
 
 class Frase(models.Model):
     frase = models.CharField(max_length=60)
+    pista_inicial = models.CharField(max_length=60)
 
 class Usuario(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, to_field='username')
     puntuacion = models.PositiveIntegerField(null=True, blank=True)
+    puntos_iniciales = models.PositiveIntegerField(default=200)
     def __str__(self):
         return str(self.usuario)
 
