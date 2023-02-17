@@ -18,7 +18,7 @@ class Frase(models.Model):
     pista_inicial = models.CharField(max_length=60)
 
 class Usuario(models.Model):
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, to_field='username')
+    usuario = models.CharField(max_length=30)
     puntuacion = models.PositiveIntegerField(null=True, blank=True)
     puntos_iniciales = models.PositiveIntegerField(default=200)
     def __str__(self):
