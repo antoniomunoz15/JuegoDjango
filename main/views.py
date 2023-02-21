@@ -13,7 +13,7 @@ from main.models import *
 from main.serializers import *
 
 class UsuarioViewSet(viewsets.ModelViewSet):
-    queryset = Usuario.objects.all()
+    queryset = Usuario.objects.all().order_by('-puntuacion')
     serializer_class = UsuarioSerializer
 
 class FraseViewSet(viewsets.ModelViewSet):
