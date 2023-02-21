@@ -28,3 +28,9 @@ https://www.coderedcorp.com/blog/how-to-dump-your-django-database-and-load-it-in
 python manage.py dumpdata --natural-foreign --natural-primary -e contenttypes -e auth.Permission --indent 2 > dump.json
 # migrate
 loaddata fixtures/dump.json
+
+
+#PARA CARGAR LAS FRASES DEL LOADDATA (ARCHIVO DATOS_FRASES.JSON)
+#python manage.py flush + docker-compose down -v + docker-compose up --detach + python manage.py makemigrations + python manage.py migrate +
+#FINALMENTE ESTE COMANDO CARGA LOS DATOS DEL JSON
+#python manage.py loaddata datos_frases.json
